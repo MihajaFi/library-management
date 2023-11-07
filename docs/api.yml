@@ -138,15 +138,13 @@ paths:
                 $ref: '#/components/schemas/Author'
 components:
   schemas:
-    Book:
+    crupdateBook:
       type: object
       properties:
         id:
           type: string
         bookName:
           type: string
-        author:
-          $ref: '#/components/schemas/Author'
         pageNumbers:
           type: integer
         topic:
@@ -172,3 +170,10 @@ components:
       enum:
         - M
         - F
+    Book:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/crupdateBook'
+      properties:
+        author:
+          $ref: '#/components/schemas/Author'
