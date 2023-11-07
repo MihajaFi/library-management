@@ -41,13 +41,27 @@ paths:
             type: string
             format: date
           required: false
+        - in: query
+          name: page
+          description: Page Number for pagination (default 1)
+          required: false
+          schema:
+            type: integer
+        - in: query
+          name: pageSize
+          description: Page size defaul 50
+          required: false
+          schema:
+            type: integer
       responses:
         200:
           description: The list of filtered books
           content:
             application/json:
               schema:
-                type: array
+                allOf:
+                 - $ref: "#/components/schemas/PaginatedResult"
+                 - type: array
                 items:
                   $ref: '#/components/schemas/Book'
     put:
@@ -137,6 +151,7 @@ paths:
           schema:
             type: string
           required: false
+        
       responses:
         200:
           description: The list of filtered authors
@@ -228,3 +243,11 @@ components:
       properties:
         author:
           $ref: '#/components/schemas/Author'
+    PaginatedResult:
+      type: object
+      properties:
+        page : 
+          type: number
+        result : 
+          type: array
+          items: {}
