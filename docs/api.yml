@@ -88,13 +88,6 @@ paths:
          schema:
           type: string
          required: true
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: array
-              items:
-                $ref: '#/components/schemas/crupdateBook'
       responses:
         200:
           description: The list of created or updated books
@@ -105,7 +98,6 @@ paths:
                 items:
                   $ref: '#/components/schemas/Book'
   /books/authors:
-
     put:
       tags:
         - Books
@@ -123,16 +115,13 @@ paths:
                   type: string
       responses:
         200:
-          description: book 
+          description: A book has been associate to an author
           content:
             application/json:
               schema:
                 type: array
                 items: 
                   $ref: "#/components/schemas/Book"
-
-       
-
   /authors:
     get:
       summary: Get all authors
