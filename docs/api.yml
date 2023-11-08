@@ -109,12 +109,10 @@ paths:
         content:
           application/json:
             schema:
-              type: object  
-              properties:
-                bookId: 
-                  type: string
-                authorId:
-                  type: string
+              type: array
+              items:
+                $ref: "#/components/schemas/UpdateBookAuthor"  
+
       responses:
         200:
           description: A book has been associate to an author
@@ -145,12 +143,14 @@ paths:
           required: false
           schema:
             type: integer
+            default: 1
         - in: path
           name: pageSize
           description: Page size
           required: false
           schema:
             type: integer
+            default: 50
       responses:
         200:
           description: The list of filtered authors
@@ -242,6 +242,16 @@ components:
       properties:
         author:
           $ref: '#/components/schemas/Author'
+    UpdateBookAuthor:
+      type: object
+      properties:
+        bookId: 
+           type: string
+        authorId:
+           type: string
+      required:
+        - bookId
+        - authorId
   parameters:        
       Page:
          name: page
@@ -259,3 +269,4 @@ components:
           default: 50
           type: integer
          required: false
+
