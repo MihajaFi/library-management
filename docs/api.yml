@@ -328,7 +328,26 @@ components:
           type: string
         sex:
           $ref: '#/components/schemas/Sex'
-    
+    ImportBook:
+      type: object
+      properties:
+        bookName:
+          type: string
+        author:
+          $ref: '#/components/schemas/Author'
+        pageNumbers:
+          type: integer
+        topic:
+          type: string
+          enum:
+            - ROMANCE
+            - COMEDY
+            - OTHER
+        releaseDate:
+          type: string
+          format: date
+        idAuthor:
+          type: string
   parameters:        
       queryPagination:
         in: query
