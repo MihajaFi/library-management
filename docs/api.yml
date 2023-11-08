@@ -242,12 +242,38 @@ components:
     status:
       type: object
       properties:
-        statutCode:
+        statusCode:
           type: integer
           description: statut code responses
         message:
           type: string
-          description: message with the statu code
+          description: message with the status code
+    body:
+      type: object
+      properties:
+        Property: 
+          type: string
+    responses:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/status'
+    response200:
+      allOf:
+        - $ref: '#/components/schemas/body'
+        - $ref: '#/components/schemas/responses'
+    response400:
+       allOf:
+        - $ref: '#/components/schemas/body'
+        - $ref: '#/components/schemas/responses'
+    response403:
+       allOf:
+        - $ref: '#/components/schemas/body'
+        - $ref: '#/components/schemas/responses'
+    response500:
+        allOf:
+        - $ref: '#/components/schemas/body'
+        - $ref: '#/components/schemas/responses'
   parameters:        
       queryPagination:
         in: query
