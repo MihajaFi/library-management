@@ -8,6 +8,7 @@ servers:
 tags:
   - Books
   - Authors
+  - Topics
 paths:
   /books:
     get:
@@ -201,6 +202,28 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Author'
+  /topics:
+    get:
+      summary: get all topic
+      tags:
+        - Topics
+      operationId: getTopic
+      parameters:
+        - in: query
+          name: topicName
+          description: Filer topic with topic name
+          schema:
+            type: string
+      responses:
+        200:
+          description: the topic find
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CrupdateTopic"
+
 components:
   schemas:
     crupdateBook:
@@ -252,6 +275,18 @@ components:
       required:
         - bookId
         - authorId
+    CrupdateTopic:
+      type: object
+      properties:
+        topicName: 
+          type: string
+          enum:
+            - ROMANCE
+            - COMEDY
+            - OTHER
+    topic:
+      type: object
+
   parameters:        
       Page:
          name: page
