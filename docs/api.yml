@@ -265,7 +265,23 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Topic"
+                $ref: "#/components/schemas/CrupdateTopic"
+  /authorsTopics:
+    get:
+      summary: List of the author topic
+      tags:
+        - Topics
+      operationId: getAuthorsTopics
+      responses:
+        200:
+          description: the list of the authorTopic
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Topic"
+
 components:
   schemas:
     crupdateBook:
@@ -331,6 +347,7 @@ components:
     Topic:
       type: object
       allOf:
+        - $ref: '#/components/schemas/Author'
         - $ref: "#/components/schemas/CrupdateTopic"
 
   parameters:        
