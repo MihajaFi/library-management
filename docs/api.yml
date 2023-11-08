@@ -239,6 +239,15 @@ components:
       required:
         - bookId
         - authorId
+    status:
+      type: object
+      properties:
+        statutCode:
+          type: integer
+          description: statut code responses
+        message:
+          type: string
+          description: message with the statu code
   parameters:        
       queryPagination:
         in: query
