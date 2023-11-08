@@ -219,12 +219,16 @@ paths:
       summary: Import a list of authors
       operationId: importAuthors
       requestBody:
+        required: true
         content:
           application/json:
             schema:
-              type: array
-              items:
-                $ref: '#/components/schemas/Author'
+              oneOf:
+                - $ref: '#/components/schemas/ImportAuthor'
+          application/vnd.openxmlformats-officedocument.spreadsheetml.sheet: # Type MIME pour Excel
+            schema:
+              type: string
+              format: binary
       responses:
         200:
           description: The list of imported authors
@@ -234,6 +238,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Author'
+
 
 components:
   schemas:
