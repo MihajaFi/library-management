@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Library API
-  version: 1.1.0
+  version: 1.2.0
   description: STD22001
 servers:
   - url: https://library.com
@@ -41,8 +41,8 @@ paths:
             type: string
             format: date
           required: false
-        - $ref: '#/components/parameters/Page'
-        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/queryPagination'
+        
       responses:
         200:
           description: The list of filtered books
@@ -137,20 +137,7 @@ paths:
           schema:
             type: string
           required: false
-        - in: path
-          name: page
-          description: Page number for pagination (default 1)
-          required: false
-          schema:
-            type: integer
-            default: 1
-        - in: path
-          name: pageSize
-          description: Page size
-          required: false
-          schema:
-            type: integer
-            default: 50
+        - $ref: '#/components/parameters/pathPagination'
       responses:
         200:
           description: The list of filtered authors
@@ -253,20 +240,38 @@ components:
         - bookId
         - authorId
   parameters:        
-      Page:
-         name: page
-         description: Page Number for pagination (default 1)
-         in: query
-         schema:
-           type: integer
-           default: 1
-         required: false
-      pageSize:
-         name: pageSize
-         description: Page size for pagination default 50
-         in: query
-         schema:
-          default: 50
-          type: integer
-         required: false
+      queryPagination:
+        in: query
+        name: queryPagination
+        description: pagination to the query parameters
+        required: false
+        schema:
+          type: object
+          properties:           
+             Page:
+              description: Page Number for pagination (default 1)
+              type: integer
+              default: 1        
+             PageSize:
+              description: Page size for pagination default 50      
+              default: 50
+              type: integer
+      pathPagination:
+        in: path
+        name: pathPagination
+        description: Pagination to the path parameters
+        required: true
+        schema:
+         type: object
+         properties:
+           Page:
+            type: integer
+            default: 1
+            description: Page Number for pagination default 1
+           PageSize:
+            type: integer
+            default: 50
+            description: Page size for pagination default 50
+          
+
 
