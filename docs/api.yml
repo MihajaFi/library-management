@@ -214,6 +214,8 @@ paths:
           description: Filer topic with topic name
           schema:
             type: string
+        - $ref:  '#/components/parameters/Page'
+        - $ref:  '#/components/parameters/pageSize'
       responses:
         200:
           description: the topic find
