@@ -244,8 +244,26 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/CrupdateTopic"
-      
-
+  /delete/{aId}:
+    delete:
+      tags:
+        - Topics
+      summary: Delete an Topic
+      operationId: deleteTopic
+      parameters:
+        - name: aId
+          in: path
+          description: Topic indentifier to be deleted
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: The topic deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Topic"
 components:
   schemas:
     crupdateBook:
@@ -308,7 +326,7 @@ components:
             - ROMANCE
             - COMEDY
             - OTHER
-    topic:
+    Topic:
       type: object
       allOf:
         - $ref: "#/components/schemas/CrupdateTopic"
