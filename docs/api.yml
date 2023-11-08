@@ -321,6 +321,14 @@ components:
         allOf:
         - $ref: '#/components/schemas/body'
         - $ref: '#/components/schemas/responses'
+    ImportAuthor:
+      type: object
+      properties:
+        authorName:
+          type: string
+        sex:
+          $ref: '#/components/schemas/Sex'
+    
   parameters:        
       queryPagination:
         in: query
