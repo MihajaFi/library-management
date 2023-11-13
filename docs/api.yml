@@ -265,6 +265,8 @@ paths:
   /books/available:
     get:
       summary: "Get avaialable books "
+      security:
+        - apiKey: []   
       tags:
         - Books
       responses:
@@ -277,6 +279,8 @@ paths:
   /visitor/{visitorId}/status:
     get:
       summary: "Get visitor status"
+      security:
+        - oauth2: [admin]
       tags:
         - Visitors
       parameters:
@@ -468,3 +472,12 @@ components:
         borrowDate:
           type: string
           format: date
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: http://library.com/login/authorize
+          scopes:
+            admin: make change to the api 
+            user: read access to the api
