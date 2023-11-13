@@ -250,6 +250,30 @@ paths:
           $ref: '#/components/responses/400'
         403:
           $ref: '#/components/responses/403'
+  /books/borrowed:
+    get:
+      summary: "Get borrowed books "
+      tags:
+        - Books
+      responses:
+        200:
+          $ref: '#/components/responses/BookList_200'
+        400:
+          $ref: '#/components/responses/400'
+        403:
+          $ref: '#/components/responses/403'
+  /books/available:
+    get:
+      summary: "Get avaialable books "
+      tags:
+        - Books
+      responses:
+        200:
+          $ref: '#/components/responses/BookList_200'
+        400:
+          $ref: '#/components/responses/400'
+        403:
+          $ref: '#/components/responses/403'
 components:
   parameters:
     Page:
@@ -365,7 +389,11 @@ components:
         releaseDate:
           type: string
           format: date
-        
+        status:
+          type: string
+          enum:
+            - AVALAIBLE
+            - BORROWED
     Visitor:
       type: object
       properties:
