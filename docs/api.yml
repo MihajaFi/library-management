@@ -358,7 +358,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/BookListBody'
+            $ref: '#/components/schemas/BadRequestBody'
   parameters:        
       queryPagination:
         in: query
