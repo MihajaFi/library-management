@@ -8,6 +8,7 @@ servers:
 tags:
   - Books
   - Authors
+  - Visitors
 paths:
   /books:
     get:
@@ -202,6 +203,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Author'
+  /visitors:
+    get:
+      summary: Get all Visitors
+      description: The returnerd visitors ordered by updated datetime.
+      operationId: getVisitors
+      parameters:
+        - in: query
+          name: visitorName
+          required: false
+          schema:
+            type: string
 components:
   parameters:
     Page:
@@ -317,6 +329,15 @@ components:
         releaseDate:
           type: string
           format: date
+    Visitor:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        reference:
+          type: string
     UpdateBook:
       type: object
       properties:
