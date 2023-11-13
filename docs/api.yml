@@ -62,13 +62,13 @@ paths:
                 $ref: '#/components/schemas/crupdateBook'
       responses:
         200:
-          description: The list of created or updated books
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Book'
+         $ref: '#/components/responses/200'
+        400:
+         $ref: '#/components/responses/400'
+        403:
+         $ref: '#/components/responses/403'
+        500:
+         $ref: '#/components/responses/500'
   /books/{bookId}/authors/{authorId}:
     put:
       tags: 
@@ -262,6 +262,22 @@ components:
           code: 400
           message: BAD REQUEST
         body: {}
+    ForbiddenBody:
+      allOf:
+        - $ref: '#/components/schemas/ResponseBodyTemplate'
+      example:
+        status:
+          code: 403
+          message: Forbidden
+        body: {}
+    InternalBody:
+      allOf:
+        - $ref: '#/components/schemas/ResponseBodyTemplate'
+      example:
+        status:
+          code: 500
+          message: Internal Server Error
+        body: {}
     BookListBody:
       allOf:
         - $ref: '#/components/schemas/ResponseBodyTemplate'
@@ -359,6 +375,18 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/BadRequestBody'
+    403:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ForbiddenBody'
+    500:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InternalBody'
   parameters:        
       queryPagination:
         in: query
