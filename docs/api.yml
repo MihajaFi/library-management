@@ -274,6 +274,35 @@ paths:
           $ref: '#/components/responses/400'
         403:
           $ref: '#/components/responses/403'
+  /visitor/{visitorId}/status:
+    get:
+      summary: "Get visitor status"
+      tags:
+        - Visitors
+      parameters:
+        - name: visitorId
+          in: path
+          required: true
+          description: "ID of the visitor"
+          schema:
+            type: string
+        - in: query
+          name: BoroowedDate
+          description: "Start date for borrowed book "
+          schema:
+            type: string
+            format: date
+        - in: query
+          name: BoroowedDate
+          description: "End date for borrowed book "
+          schema:
+            type: string
+            format: date  
+      responses:
+        200:
+          $ref: '#/components/responses/VisitorStatus_200'
+        400:
+          $ref: '#/components/responses/400'
 components:
   parameters:
     Page:
@@ -297,6 +326,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/BookListBody'
+    VisitorStatus_200:
+      description: List of Visitors
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/VisitorStatusListBody'
     400:
       description: Bad Request
       content:
@@ -350,6 +385,14 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/Book'
+    VisitorStatusListBody:
+      allOf:
+        - $ref: '#/components/schemas/ResponseBodyTemplate'
+        - properties:
+            body:
+              type: array
+              items:
+                $ref: '#/components/schemas/BookBorrowed'
     Book:
       type: object
       properties:
@@ -413,3 +456,15 @@ components:
       required:
         - bookId
         - authorId
+    BookBorrowed:
+      type: object
+      properties:
+        id:
+          type: string
+        bookId:
+          type: string
+        visitorId:
+          type: string
+        borrowDate:
+          type: string
+          format: date
