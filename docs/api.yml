@@ -206,6 +206,8 @@ paths:
   /visitors:
     get:
       summary: Get all Visitors
+      tags:
+        - Visitors
       description: The returnerd visitors ordered by updated datetime.
       operationId: getVisitors
       parameters:
@@ -214,6 +216,40 @@ paths:
           required: false
           schema:
             type: string
+      responses:
+        200:
+          description: The list  of filtered Visitors
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Visitor'
+    put:
+      summary: Create or update Visitors
+      operationId: crupdateVisitors
+      tags:
+        - Visitors
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Visitor'
+      responses:
+        200:
+          description: The list of created or updated author
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Visitor'
+        400:
+          $ref: '#/components/responses/400'
+        403:
+          $ref: '#/components/responses/403'
 components:
   parameters:
     Page:
@@ -329,6 +365,7 @@ components:
         releaseDate:
           type: string
           format: date
+        
     Visitor:
       type: object
       properties:
