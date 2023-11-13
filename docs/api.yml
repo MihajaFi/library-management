@@ -45,13 +45,9 @@ paths:
         
       responses:
         200:
-          description: The list of filtered books
-          content:
-            application/json:
-              schema:
-                  type: array
-                  items:
-                  $ref: '#/components/schemas/Book'
+         $ref: '#/components/responses/200'
+        400:
+         $ref: '#/components/responses/400'
     put:
       tags:
         - Books
@@ -241,10 +237,39 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Author'
-
-
 components:
   schemas:
+    ResponseStatus:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          example: 200
+        message:
+          type: string
+    ResponseBodyTemplate:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/ResponseStatus'
+        body:
+          type: object
+    BadRequestBody:
+      allOf:
+        - $ref: '#/components/schemas/ResponseBodyTemplate'
+      example:
+        status:
+          code: 400
+          message: BAD REQUEST
+        body: {}
+    BookListBody:
+      allOf:
+        - $ref: '#/components/schemas/ResponseBodyTemplate'
+        - properties:
+            body:
+              type: array
+              items:
+                $ref: '#/components/schemas/Book'
     crupdateBook:
       type: object
       properties:
@@ -294,41 +319,6 @@ components:
       required:
         - bookId
         - authorId
-    status:
-      type: object
-      properties:
-        statusCode:
-          type: integer
-          description: statut code responses
-        message:
-          type: string
-          description: message with the status code
-    body:
-      type: object
-      properties:
-        Property: 
-          type: string
-    responses:
-      type: object
-      properties:
-        status:
-          $ref: '#/components/schemas/status'
-    response200:
-      allOf:
-        - $ref: '#/components/schemas/body'
-        - $ref: '#/components/schemas/responses'
-    response400:
-       allOf:
-        - $ref: '#/components/schemas/body'
-        - $ref: '#/components/schemas/responses'
-    response403:
-       allOf:
-        - $ref: '#/components/schemas/body'
-        - $ref: '#/components/schemas/responses'
-    response500:
-        allOf:
-        - $ref: '#/components/schemas/body'
-        - $ref: '#/components/schemas/responses'
     ImportAuthor:
       type: object
       properties:
@@ -356,6 +346,19 @@ components:
           format: date
         idAuthor:
           type: string
+  responses:
+    200:
+      description: List of books
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BookListBody'
+    400:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BookListBody'
   parameters:        
       queryPagination:
         in: query
